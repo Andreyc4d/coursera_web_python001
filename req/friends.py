@@ -1,4 +1,5 @@
 import requests
+import sys
 def calc_age(uid):
     url_need = 'https://api.vk.com/method/'
     vk_method_need = 'friends.get'
@@ -13,11 +14,18 @@ def calc_age(uid):
 print(__name__)
 
 if __name__ == '__main__':
-    res = calc_age('176667991')
+    try:
+        user_id = str(sys.argv[1])
+    except IndexError:
+        user_id = '12254363'
+    res = calc_age(user_id)
     try:
         j = res.json()
     except JSONDecodeError:
         print('net Dannyh')
+
+    lst = dict()
+
 
     for i in j['response']['items']:
         id = i['id']
@@ -27,5 +35,14 @@ if __name__ == '__main__':
             bdate = i['bdate']
         except KeyError:
             bdate  = 'qqqqq'
-        print(str(first_name)+';'+str(last_name)+';'+str(id)+';'+str(bdate))
-
+        if bdate.count('.') == 2:
+            age  = 2018 - int(bdate[len(bdate)-4:])
+            #if age >= 39:
+            #print(first_name+' ' + last_name+ ' : '+str(age))
+            #try:
+                #lst[age] = lst[age]+1
+            #except KeyError:
+                #lst[age] = 1
+            lst[age] = lst.setdefault(age,0) + 1 #replace 4 string upper
+        #print(str(first_name)+';'+str(last_name)+';'+str(id)+';'+str(bdate))
+    print(lst)
