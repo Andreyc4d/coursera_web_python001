@@ -1,0 +1,8 @@
+url_need = 'https://api.vk.com/method/'
+vk_method_need = 'friends.get'
+payload = {'v'              :'5.71',
+           'access_token'   :'17da724517da724517da72458517b8abce117da17da72454d235c274f1a2be5f45ee711',
+           'user_id'        :'176667991',
+           'order'          :'name',
+           'fields'         :'bdate',
+           }
